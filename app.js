@@ -16,7 +16,7 @@ const stats = require('simple-statistics')
 /************
 	APP INIT
 *************/
-const port = 7000
+const port = 9000
 
 // express
 const app = express()
