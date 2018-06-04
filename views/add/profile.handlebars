@@ -1,0 +1,25 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+      <h4 class='text-center'>Registrar a un nuevo personaje</h4>
+      <p class='text-center'>
+        Ingresa el nombre del personaje para capturarlo en la base de datos.
+      </p>
+      <!-- formulario sesión administrador -->
+      <hr class='add-item-division' />
+      <form action='/add/profile' method='post'>
+        <div class='form-group'>
+          <input type='text' name='personaje' class='form-control' placeholder='Nombre del personaje' />
+          <select class='form-control' name='genero'>
+            <option disabled selected>Selecciona el género</option>
+            <option value='F'>Femenino</option>
+            <option value='M'>Masculino</option>
+          </select>
+          <input type='text' name='link_to_tag' class='form-control' placeholder='Link al tag de Colombia Check' />
+          <button class='btn btn-primary btn-block submit-btn' type='submit'>Capturar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr />

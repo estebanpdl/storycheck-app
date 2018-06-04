@@ -1,0 +1,37 @@
+<!-- create navbar as partial file -->
+<nav class='navbar navbar-default'>
+	<div class='container-fluid'>
+		<div class='navbar-header'>
+			<button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#storycheck-navbar' aria-expanded='false'>
+				<i class='fa fa-bars' aria-hidden='true'></i>
+			</button>
+			<a class='navbar-brand' href='/'>
+				<img class='hidden-xs colcheck' alt='colombiacheck' src='/img/logo.png'>
+			</a>
+		</div>
+		<div id='storycheck-navbar' class='collapse navbar-collapse'>
+			<ul class='nav navbar-nav'>
+				<li>
+					<a href='/metodologia'>
+						<button class='btn btn-default btn-md'>Metodología</button>
+					</a>
+				</li>
+			</ul>
+			{{#if staff}}
+			<ul class='nav navbar-nav navbar-right admin'>
+				<li>
+					<a class='a-admin' href='/checks/admin/'>
+						<button id='admin' class='btn btn-primary btn-md admin'>admin</button>
+					</a>
+				</li>
+				<li>
+					<a href='/staff/logout/'>
+						<button class='btn btn-warning btn-md admin'>salir</button>
+					</a>
+				</li>
+			</ul>
+			{{else}}
+			{{/if}}
+		</div>
+	</div>
+</nav>

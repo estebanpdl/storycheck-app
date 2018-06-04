@@ -1,0 +1,61 @@
+<!-- carousel -->
+<div id='home-carousel' class='carousel slide' data-ride='carousel'>
+	<!-- indicators -->
+	<ol class='carousel-indicators'>
+		<li data-target='#home-carousel' data-slide-to='0' class='active'></li>
+		<li data-target='#home-carousel' data-slide-to='1'></li>
+		<li data-target='#home-carousel' data-slide-to='2'></li>
+	</ol>
+
+	<!-- wraper for slides -->
+	<div class='carousel-inner' role='listbox'>
+		{{#each slide}}
+			<div style='background-image: url({{slide.link_img}})' class='item {{class}}'>
+				<div class='container'>
+					<div class='row slide-caption'>
+						<div class='col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12'>
+							<a target='_blank' href='{{slide.link_article}}'>
+								<h1 class='text-center'>{{slide.title}}</h1>
+							</a>
+							<br />
+							<p class='text-center lead'>{{slide.summary}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{/each}}
+	</div>
+
+	<!-- controls -->
+	<a class='left carousel-control' href='#home-carousel' role='button' data-slide='prev'>
+		<span class="slide-arrow" aria-hidden='true'>
+			<i class="fas fa-chevron-left"></i>
+		</span>
+	</a>
+	<a class='right carousel-control' href='#home-carousel' role='button' data-slide='next'>
+		<span class="slide-arrow" aria-hidden='true'>
+			<i class="fas fa-chevron-right"></i>
+		</span>
+	</a>
+<!-- end carousel -->
+</div>
+
+<!-- show ranking -->
+<div class='container'>
+	<div class='row'>
+		<div class='col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12'>
+			<div id='top-ranking'></div>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3'>
+			<div id='load-more'>
+				<a id='full-rank' href="#">
+					<button id='loadMore' class='btn btn-default btn-block btn-lg'>
+			      Ver más
+			    </button>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,64 @@
+<div class='container'>
+	<!-- create edit checks forms -->
+	<h2 class='text-center'>Editar chequeos</h2>
+	<!-- formulario edición de chequeos -->
+	<form action='/checks/admin/{{check.id}}?_method=PUT' method='post'>
+		<input type='hidden' name='_method' value='PUT'>
+		<div class='form-group'>
+			<div class="container-fluid">
+				<div class="row">
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='autor' class='form-control' value='{{check.autor}}' placeholder='Autor' required />
+					</div>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='fecha' class='form-control datepickr' value='{{check.fecha}}' placeholder='fecha publicación dd/mm/aaaa' required />
+					</div>
+				</div>
+				<div class="row">
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<select id='valor-str' class='form-control' name='valor_str' required>
+							<option disabled selected>Calificación</option>
+							<option>FALSA</option>
+							<option>ENGAÑOSA</option>
+							<option>INFLADA</option>
+							<option>LIGERA</option>
+							<option>APROXIMADA</option>
+							<option>VERDADERA</option>
+						</select>
+					</div>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input id='valor-number' class='form-control f-input' name='valor' required readonly />
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='title' class='form-control' value='{{check.title}}' placeholder='Título' required />
+					</div>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='src' class='form-control' value='{{check.src}}' placeholder='Enlace al artículo' required />
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<select id='profile' class='form-control' name='personaje' required />
+							<option disabled selected>Selecciona el personaje</option>
+						</select>
+					</div>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input id='profile-id' type='text' name='profile_id' class='form-control' value='{{check.profile_id}}' placeholder='Personaje ID' required />
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='grupo_movimiento' class='form-control' value='{{check.grupo_movimiento}}' placeholder='Grupo o movimiento' required />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class='col-md-3 col-sm-6 col-xs-12 pull-right'>
+					<button type='submit' class='btn btn-block btn-primary f-btn'>Actualizar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,63 @@
+<div class='container'>
+	<!-- create checks forms -->
+	<h2 class='text-center'>Capturar un nuevo chequeo</h2>
+	<!-- formulario captura de chequeos -->
+	<form action='/checks/admin/' method='post'>
+		<div class='form-group'>
+			<div class='container-fluid'>
+				<div class='row'>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='autor' class='form-control' placeholder='Autor' required />
+					</div>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='fecha' class='form-control datepickr' placeholder='fecha de publicación' required />
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<select id='valor-str' class='form-control' name='valor_str' required>
+							<option disabled selected>Selecciona la calificación</option>
+							<option>FALSA</option>
+							<option>ENGAÑOSA</option>
+							<option>INFLADA</option>
+							<option>LIGERA</option>
+							<option>APROXIMADA</option>
+							<option>VERDADERA</option>
+						</select>
+					</div>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input id='valor-number' class='form-control f-input' name='valor' placeholder='Valor calificación' required readonly />
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='title' class='form-control' placeholder='Título' required />
+					</div>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='src' class='form-control' placeholder='Enlace al artículo' required />
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<select id='profile' class='form-control' name='personaje' required />
+							<option disabled selected>Selecciona el personaje</option>
+						</select>
+					</div>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input id='profile-id' type='text' name='profile_id' class='form-control' placeholder='Personaje ID' value='' required readonly />
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input type='text' name='grupo_movimiento' class='form-control' placeholder='Grupo o movimiento' required />
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-3 col-sm-6 col-xs-12 pull-right'>
+						<button type='submit' class='btn btn-block btn-primary submit-btn'>Capturar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

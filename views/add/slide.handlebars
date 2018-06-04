@@ -1,0 +1,22 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+      <h4 class='text-center'>Registrar contenido</h4>
+      <p class='text-center'>
+        Ingresa el título, descripción y link al especial.
+      </p>
+      <!-- formulario sesión administrador -->
+      <hr class='add-item-division' />
+      <form action='/add/slide' method='post'>
+        <div class='form-group'>
+          <input type='text' name='title' class='form-control' placeholder='Título' />
+          <textarea name='summary' class='form-control' rows='7' placeholder='Sumario'></textarea>
+          <input type='text' name='link_article' class='form-control' placeholder='Link al artículo' />
+          <input type='text' name='link_img' class='form-control' placeholder='Link de la imagen' />
+          <button class='btn btn-primary btn-block submit-btn' type='submit'>Capturar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr />
