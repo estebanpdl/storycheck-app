@@ -49,7 +49,12 @@
 				</div>
 				<div class='row'>
 					<div class='col-md-6 col-sm-6 col-xs-12'>
-						<input type='text' name='grupo_movimiento' class='form-control' placeholder='Grupo o movimiento' required />
+						<select id='movimiento' class='form-control' name='grupo_movimiento' required />
+							<option disabled selected>Selecciona el grupo o movimiento</option>
+						</select>
+					</div>
+					<div class='col-md-6 col-sm-6 col-xs-12'>
+						<input id='movimiento-id' type='text' name='gpo_movimiento_id' class='form-control' placeholder='Gpo Movimiento ID' value='' required readonly />
 					</div>
 				</div>
 				<div class='row'>

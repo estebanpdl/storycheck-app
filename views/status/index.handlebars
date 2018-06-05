@@ -1,34 +1,184 @@
+<!-- status by profile -->
 <div id='cover'>
-  <h2 class='text-center'>{{obj.personaje}}</h2>
-
+  <h2>{{obj.personaje}}</h2>
+  <img src='http://www.bagre.pa.gov.br/wp-content/uploads/2016/07/user-silhueta-masculina_318-55563-300x300.jpg' alt='' class='img-circle profile-img'>
 </div>
+
+<!-- pill tabs content -->
 <div class='container'>
   <div class='row'>
-    <div class='col-md-3 col-sm-3 col-xs-6'>
-      <p class='text-center'>Número de chequeos</p>
-      <p class='text-center'>{{obj.checks}}</p>
+    <div class='col-md-3 col-sm-3 col-xs-12'>
+      <ul class='nav nav-pills nav-stacked'>
+        <li class='active'>
+          <a class='pill-all-content' href='#all-status-content' data-toggle='tab'>
+            <h4>
+              Contenido
+            </h4>
+          </a>
+        </li>
+        <li>
+          <a href='#falsa-content' data-toggle='tab'>
+            <img class='img-responsive value-icon' src='/img/falsa.png'>
+          </a>
+        </li>
+        <li>
+          <a href='#enganosa-content' data-toggle='tab'>
+            <img class='img-responsive value-icon' src='/img/engañosa.png'>
+          </a>
+        </li>
+        <li>
+          <a href='#inflada-content' data-toggle='tab'>
+            <img class='img-responsive value-icon' src='/img/inflada.png'>
+          </a>
+        </li>
+        <li>
+          <a href='#ligera-content' data-toggle='tab'>
+            <img class='img-responsive value-icon' src='/img/ligera.png'>
+          </a>
+        </li>
+        <li>
+          <a href='#aproximada-content' data-toggle='tab'>
+            <img class='img-responsive value-icon' src='/img/aproximada.png'>
+          </a>
+        </li>
+        <li>
+          <a href='#verdadera-content' data-toggle='tab'>
+            <img class='img-responsive value-icon' src='/img/verdadera.png'>
+          </a>
+        </li>
+      </ul>
     </div>
-    <div class='col-md-3 col-sm-3 col-xs-6'>
-      <p class='text-center'>Score</p>
-      <p class='text-center'>{{obj.mean}}</p>
+    <div class='col-md-9 col-sm-9 col-xs-12'>
+      <!-- tabs content -->
+      <div class='tab-content'>
+
+        <!-- all content -->
+        <div id='all-status-content' class='tab-pane active'>
+          <h2 class='text-center'>
+            Contenido
+          </h2>
+          <div id='plot'></div>
+        </div>
+
+        <!-- check falsa -->
+        <div id='falsa-content' class='tab-pane'>
+          <h2>
+            <img class='img-responsive title-icon' src='/img/falsa.png'>
+          </h2>
+          <hr />
+          {{#each obj.falsa}}
+          <div class='thumbnail'>
+            <a target='_blank' href='{{src}}'>
+              <p class='lead'>{{title}}</p>
+            </a>
+            <p>Fecha de publicación: {{fecha}}</p>
+            <p>Autor: {{autor}}</p>
+          </div>
+          {{else}}
+          <p class='lead'>{{obj.personaje}} no cuenta con chequeos para esta calificación</p>
+          {{/each}}
+        </div>
+
+        <!-- check engañosa -->
+        <div id='enganosa-content' class='tab-pane'>
+          <h2>
+            <img class='img-responsive title-icon' src='/img/engañosa.png'>
+          </h2>
+          <hr />
+          {{#each obj.enganosa}}
+          <div class='thumbnail'>
+            <a target='_blank' href='{{src}}'>
+              <p class='lead'>{{title}}</p>
+            </a>
+            <p>Fecha de publicación: {{fecha}}</p>
+            <p>Autor: {{autor}}</p>
+          </div>
+          {{else}}
+          <p class='lead'>{{obj.personaje}} no cuenta con chequeos para esta calificación</p>
+          {{/each}}
+        </div>
+
+        <!-- check inflada -->
+        <div id='inflada-content' class='tab-pane'>
+          <h2>
+            <img class='img-responsive title-icon' src='/img/inflada.png'>
+          </h2>
+          <hr />
+          {{#each obj.inflada}}
+          <div class='thumbnail'>
+            <a target='_blank' href='{{src}}'>
+              <p class='lead'>{{title}}</p>
+            </a>
+            <p>Fecha de publicación: {{fecha}}</p>
+            <p>Autor: {{autor}}</p>
+          </div>
+          {{else}}
+          <p class='lead'>{{obj.personaje}} no cuenta con chequeos para esta calificación</p>
+          {{/each}}
+        </div>
+
+        <!-- check ligera -->
+        <div id='ligera-content' class='tab-pane'>
+          <h2>
+            <img class='img-responsive title-icon' src='/img/ligera.png'>
+          </h2>
+          <hr />
+          {{#each obj.ligera}}
+          <div class='thumbnail'>
+            <a target='_blank' href='{{src}}'>
+              <p class='lead'>{{title}}</p>
+            </a>
+            <p>Fecha de publicación: {{fecha}}</p>
+            <p>Autor: {{autor}}</p>
+          </div>
+          {{else}}
+          <p class='lead'>{{obj.personaje}} no cuenta con chequeos para esta calificación</p>
+          {{/each}}
+        </div>
+
+        <!-- check aproximada -->
+        <div id='aproximada-content' class='tab-pane'>
+          <h2>
+            <img class='img-responsive title-icon' src='/img/aproximada.png'>
+          </h2>
+          <hr />
+          {{#each obj.aproximada}}
+          <div class='thumbnail'>
+            <a target='_blank' href='{{src}}'>
+              <p class='lead'>{{title}}</p>
+            </a>
+            <p>Fecha de publicación: {{fecha}}</p>
+            <p>Autor: {{autor}}</p>
+          </div>
+          {{else}}
+          <p class='lead'>{{obj.personaje}} no cuenta con chequeos para esta calificación</p>
+          {{/each}}
+        </div>
+
+        <!-- check verdadera -->
+        <div id='verdadera-content' class='tab-pane'>
+          <h2>
+            <img class='img-responsive title-icon' src='/img/verdadera.png'>
+          </h2>
+          <hr />
+          {{#each obj.verdadera}}
+          <div class='thumbnail'>
+            <a target='_blank' href='{{src}}'>
+              <p class='lead'>{{title}}</p>
+            </a>
+            <p>Fecha de publicación: {{fecha}}</p>
+            <p>Autor: {{autor}}</p>
+          </div>
+          {{else}}
+          <p class='lead'>{{obj.personaje}} no cuenta con chequeos para esta calificación</p>
+          {{/each}}
+        </div>
+
+      <!-- end tab content -->
+      </div>
+    <!-- end column -->
     </div>
-    <div class='col-md-3 col-sm-3 col-xs-6'>
-      <p class='text-center'>Min</p>
-      <p class='text-center'>{{obj.min}}</p>
-    </div>
-    <div class='col-md-3 col-sm-3 col-xs-6'>
-      <p class='text-center'>Max</p>
-      <p class='text-center'>{{obj.max}}</p>
-    </div>
+  <!-- end row -->
   </div>
-  <div class='row'>
-    {{#each obj.data}}
-    <p class='text-center'>{{title}}</p>
-    <p class='text-center'>{{src}}</p>
-    <p class='text-center'>{{valor_str}}</p>
-    {{/each}}
-  </div>
-  <div class='row'>
-    <div id='' class=''></div>
-  </div>
+<!-- end container -->
 </div>

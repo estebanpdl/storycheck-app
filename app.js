@@ -155,8 +155,9 @@ app.get('/api/status/:id', (req, res) => {
 	let _id = req.params.id
 	Check.find({
 		'profile_id': _id
-	}).sort({ fecha: 1 })
+	}).sort({ fecha: -1 })
 		.then(profile => {
+
 			// process profile
 			let values = []
 			let plot = []
@@ -165,11 +166,16 @@ app.get('/api/status/:id', (req, res) => {
 
 				// plot data
 				let p = {
-					'date': d.fecha,
-					'value': d.valor
+					'label': d.valor_str,
+					'value': profile.filter(o => o.valor_str == d.valor_str).length
 				}
 				plot.push(p)
 			})
+
+			// filter plot array by unique objects
+			plot = plot.filter((val, idx, self) => self.findIndex((t) => {
+				return t.label === val.label && t.value === val.value
+			}) === idx)
 
 			// create object data
 			let obj = {
@@ -181,8 +187,15 @@ app.get('/api/status/:id', (req, res) => {
 				sum: stats.sum(values),
 				checks: values.length,
 				values: values,
-				line_plot: plot,
-				data: profile
+				table: plot,
+				bar_plot: plot,
+				data: profile,
+				falsa: profile.filter(o => o.valor_str == 'FALSA'),
+				enganosa: profile.filter(o => o.valor_str == 'ENGAÑOSA'),
+				inflada: profile.filter(o => o.valor_str == 'INFLADA'),
+				ligera: profile.filter(o => o.valor_str == 'LIGERA'),
+				aproximada: profile.filter(o => o.valor_str == 'APROXIMADA'),
+				vardadera: profile.filter(o => o.valor_str == 'VERDADERA')
 			}
 
 			// send data
@@ -197,6 +210,7 @@ app.get('/status/:id', (req, res) => {
 		'profile_id': _id
 	}).sort({ fecha: -1 })
 		.then(profile => {
+
 			// process profile
 			let values = []
 			let plot = []
@@ -205,11 +219,16 @@ app.get('/status/:id', (req, res) => {
 
 				// plot data
 				let p = {
-					'date': d.fecha,
-					'value': d.valor
+					'label': d.valor_str,
+					'value': profile.filter(o => o.valor_str == d.valor_str).length
 				}
 				plot.push(p)
 			})
+
+			// filter plot array by unique objects
+			plot = plot.filter((val, idx, self) => self.findIndex((t) => {
+				return t.label === val.label && t.value === val.value
+			}) === idx)
 
 			// create object data
 			let obj = {
@@ -221,8 +240,15 @@ app.get('/status/:id', (req, res) => {
 				sum: stats.sum(values),
 				checks: values.length,
 				values: values,
-				line_plot: plot,
-				data: profile
+				table: plot,
+				bar_plot: plot,
+				data: profile,
+				falsa: profile.filter(o => o.valor_str == 'FALSA'),
+				enganosa: profile.filter(o => o.valor_str == 'ENGAÑOSA'),
+				inflada: profile.filter(o => o.valor_str == 'INFLADA'),
+				ligera: profile.filter(o => o.valor_str == 'LIGERA'),
+				aproximada: profile.filter(o => o.valor_str == 'APROXIMADA'),
+				vardadera: profile.filter(o => o.valor_str == 'VERDADERA')
 			}
 
 			// render view
@@ -297,6 +323,13 @@ app.post('/add/slide', clientIsNotAuth, (req, res) => {
 app.get('/profiles.json', (req, res) => {
 	Profiles.find({}).then(profiles => {
 		res.json(profiles)
+	})
+})
+
+// fetch gpos_movimientos data
+app.get('/gpos_movimientos.json', (req, res) => {
+	Grupos.find({}).then(gpos => {
+		res.json(gpos)
 	})
 })
 
