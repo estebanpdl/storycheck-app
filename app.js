@@ -161,15 +161,31 @@ app.get('/api/status/:id', (req, res) => {
 			// process profile
 			let values = []
 			let plot = []
-			profile.map((d) => {
-				values.push(d.valor)
 
-				// plot data
-				let p = {
-					'label': d.valor_str,
-					'value': profile.filter(o => o.valor_str == d.valor_str).length
-				}
-				plot.push(p)
+			// array order
+			let array_order = [
+				'FALSA',
+				'ENGAÑOSA',
+				'INFLADA',
+				'LIGERA',
+				'APROXIMADA',
+				'VERDADERA'
+			]
+
+			// mapping array order
+			array_order.map((item) => {
+				profile.map((d) => {
+					values.push(d.valor)
+
+					if (item == d.valor_str) {
+						// plot data
+						let p = {
+							'label': d.valor_str,
+							'value': profile.filter(o => o.valor_str == d.valor_str).length
+						}
+						plot.push(p)
+					}
+				})
 			})
 
 			// filter plot array by unique objects
@@ -214,15 +230,31 @@ app.get('/status/:id', (req, res) => {
 			// process profile
 			let values = []
 			let plot = []
-			profile.map((d) => {
-				values.push(d.valor)
 
-				// plot data
-				let p = {
-					'label': d.valor_str,
-					'value': profile.filter(o => o.valor_str == d.valor_str).length
-				}
-				plot.push(p)
+			// array order
+			let array_order = [
+				'FALSA',
+				'ENGAÑOSA',
+				'INFLADA',
+				'LIGERA',
+				'APROXIMADA',
+				'VERDADERA'
+			]
+
+			// mapping array order
+			array_order.map((item) => {
+				profile.map((d) => {
+					values.push(d.valor)
+
+					if (item == d.valor_str) {
+						// plot data
+						let p = {
+							'label': d.valor_str,
+							'value': profile.filter(o => o.valor_str == d.valor_str).length
+						}
+						plot.push(p)
+					}
+				})
 			})
 
 			// filter plot array by unique objects
@@ -355,6 +387,22 @@ app.get('/ranking.json', (req, res) => {
 		.then(agg => {
 			res.json(agg)
 		})
+})
+
+// fetch all ranking
+app.get('/api/ranking', (req, res) => {
+	Check.aggregate({
+		'$group': {
+			_id: '$profile_id',
+			count: {
+				'$sum': 1
+			}
+		}
+	}).sort({
+		count: -1
+	}).then(agg => {
+		res.json(agg)
+	})
 })
 
 // fetch data by staff user
