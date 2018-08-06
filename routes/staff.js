@@ -20,7 +20,7 @@ router.get('/colcheck/', clientIsAuth, (req, res) => {
 })
 
 // route register
-router.get('/register/', clientIsNotAuth, (req, res) => {
+router.get('/register/', (req, res) => {
 	let title = 'Registro Staff'
 	res.render('staff/register', {
 		title: title
@@ -43,7 +43,7 @@ router.post('/colcheck/', (req, res, next) => {
 })
 
 // route register post
-router.post('/register/', clientIsNotAuth, (req, res) => {
+router.post('/register/', (req, res) => {
 	let title = 'Error en registro'
 	let errors = []
 	if (req.body.password != req.body.password_confirm) {
