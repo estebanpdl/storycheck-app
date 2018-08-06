@@ -13,10 +13,11 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const stats = require('simple-statistics')
 
+
 /************
 	APP INIT
 *************/
-const port = 9000
+const port = process.env.PORT || 9000
 
 // express
 const app = express()
@@ -32,7 +33,8 @@ require('./config/passport')(passport);
 mongoose.Promise = global.Promise
 
 // connect to mongoose
-mongoose.connect('mongodb://localhost:27017/storycheck-dev', {
+const db = require('./config/database')
+mongoose.connect(db.mongoURI, {
 	useMongoClient: true
 })
 	.then(() => console.log('MongoDB connected'))
