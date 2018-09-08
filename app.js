@@ -147,142 +147,176 @@ app.get('/ranking', (req, res) => {
 // api status
 app.get('/api/status/:id', (req, res) => {
 	let _id = req.params.id
-	Check.find({
-		'profile_id': _id
-	}).sort({ fecha: -1 })
-		.then(profile => {
+	Profiles.findOne({
+		'_id': _id
+	}).then(profile_checked => {
+		Check.find({
+			'profile_id': _id
+		}).sort({ fecha: -1 })
+			.then(profile => {
 
-			// process profile
-			let values = []
-			let plot = []
+				// process profile
+				let values;
+				let plot = []
 
-			// array order
-			let array_order = [
-				'FALSA',
-				'ENGAÑOSA',
-				'INFLADA',
-				'LIGERA',
-				'APROXIMADA',
-				'VERDADERA'
-			]
+				// array order
+				let array_order = [
+					'FALSA',
+					'ENGAÑOSA',
+					'INFLADA',
+					'LIGERA',
+					'APROXIMADA',
+					'VERDADERA'
+				]
 
-			// mapping array order
-			array_order.map((item) => {
-				profile.map((d) => {
-					values.push(d.valor)
+				let barColors = {
+					'FALSA': 'red',
+					'ENGAÑOSA': 'yellow',
+					'INFLADA': 'yellow',
+					'LIGERA': 'yellow',
+					'APROXIMADA': 'yellow',
+					'VERDADERA': 'blue'
+				}
 
-					if (item == d.valor_str) {
-						// plot data
-						let p = {
-							'label': d.valor_str,
-							'value': profile.filter(o => o.valor_str == d.valor_str).length
+				// mapping array order
+				array_order.map((item) => {
+					values = []
+					profile.map((d) => {
+						values.push(d.valor)
+
+						if (item == d.valor_str) {
+							// plot data
+							let p = {
+								'label': d.valor_str,
+								'value': profile.filter(o => o.valor_str == d.valor_str).length,
+								'color': barColors[item],
+								'legend': item.toLowerCase()
+							}
+							plot.push(p)
 						}
-						plot.push(p)
-					}
+					})
 				})
+
+				// filter plot array by unique objects
+				plot = plot.filter((val, idx, self) => self.findIndex((t) => {
+					return t.label === val.label && t.value === val.value
+				}) === idx)
+
+				// create object data
+				let obj = {
+					profile_id: _id,
+					gender: profile_checked.personaje,
+					personaje: profile[0].personaje,
+					min: stats.min(values),
+					max: stats.max(values),
+					mean: stats.mean(values).toFixed(2).toString(),
+					sum: stats.sum(values),
+					checks: values.length,
+					values: values,
+					table: plot,
+					bar_plot: plot,
+					data: profile,
+					falsa: profile.filter(o => o.valor_str == 'FALSA'),
+					enganosa: profile.filter(o => o.valor_str == 'ENGAÑOSA'),
+					inflada: profile.filter(o => o.valor_str == 'INFLADA'),
+					ligera: profile.filter(o => o.valor_str == 'LIGERA'),
+					aproximada: profile.filter(o => o.valor_str == 'APROXIMADA'),
+					verdadera: profile.filter(o => o.valor_str == 'VERDADERA')
+				}
+
+				// send data
+				res.send(obj)
 			})
-
-			// filter plot array by unique objects
-			plot = plot.filter((val, idx, self) => self.findIndex((t) => {
-				return t.label === val.label && t.value === val.value
-			}) === idx)
-
-			// create object data
-			let obj = {
-				profile_id: _id,
-				personaje: profile[0].personaje,
-				min: stats.min(values),
-				max: stats.max(values),
-				mean: stats.mean(values).toFixed(2).toString(),
-				sum: stats.sum(values),
-				checks: values.length,
-				values: values,
-				table: plot,
-				bar_plot: plot,
-				data: profile,
-				falsa: profile.filter(o => o.valor_str == 'FALSA'),
-				enganosa: profile.filter(o => o.valor_str == 'ENGAÑOSA'),
-				inflada: profile.filter(o => o.valor_str == 'INFLADA'),
-				ligera: profile.filter(o => o.valor_str == 'LIGERA'),
-				aproximada: profile.filter(o => o.valor_str == 'APROXIMADA'),
-				vardadera: profile.filter(o => o.valor_str == 'VERDADERA')
-			}
-
-			// send data
-			res.send(obj)
-		})
+	})
 })
 
 // view by user
 app.get('/status/:id', (req, res) => {
 	let _id = req.params.id
-	Check.find({
-		'profile_id': _id
-	}).sort({ fecha: -1 })
-		.then(profile => {
+	Profiles.findOne({
+		'_id': _id
+	}).then(profile_checked => {
+		Check.find({
+			'profile_id': _id
+		}).sort({ fecha: -1 })
+			.then(profile => {
 
-			// process profile
-			let values = []
-			let plot = []
+				// process profile
+				let values;
+				let plot = []
 
-			// array order
-			let array_order = [
-				'FALSA',
-				'ENGAÑOSA',
-				'INFLADA',
-				'LIGERA',
-				'APROXIMADA',
-				'VERDADERA'
-			]
+				// array order
+				let array_order = [
+					'FALSA',
+					'ENGAÑOSA',
+					'INFLADA',
+					'LIGERA',
+					'APROXIMADA',
+					'VERDADERA'
+				]
 
-			// mapping array order
-			array_order.map((item) => {
-				profile.map((d) => {
-					values.push(d.valor)
+				let barColors = {
+					'FALSA': 'red',
+					'ENGAÑOSA': 'yellow',
+					'INFLADA': 'yellow',
+					'LIGERA': 'yellow',
+					'APROXIMADA': 'yellow',
+					'VERDADERA': 'blue'
+				}
 
-					if (item == d.valor_str) {
-						// plot data
-						let p = {
-							'label': d.valor_str,
-							'value': profile.filter(o => o.valor_str == d.valor_str).length
+				// mapping array order
+				array_order.map((item) => {
+					values = []
+					profile.map((d) => {
+						values.push(d.valor)
+
+						if (item == d.valor_str) {
+							// plot data
+							let p = {
+								'label': d.valor_str,
+								'value': profile.filter(o => o.valor_str == d.valor_str).length,
+								'color': barColors[item],
+								'legend': item.toLowerCase()
+							}
+							plot.push(p)
 						}
-						plot.push(p)
-					}
+					})
+				})
+
+				// filter plot array by unique objects
+				plot = plot.filter((val, idx, self) => self.findIndex((t) => {
+					return t.label === val.label && t.value === val.value
+				}) === idx)
+
+				// create object data
+				let obj = {
+					profile_id: _id,
+					gender: profile_checked.personaje,
+					personaje: profile[0].personaje,
+					min: stats.min(values),
+					max: stats.max(values),
+					mean: stats.mean(values).toFixed(2).toString(),
+					sum: stats.sum(values),
+					checks: values.length,
+					values: values,
+					table: plot,
+					bar_plot: plot,
+					data: profile,
+					falsa: profile.filter(o => o.valor_str == 'FALSA'),
+					enganosa: profile.filter(o => o.valor_str == 'ENGAÑOSA'),
+					inflada: profile.filter(o => o.valor_str == 'INFLADA'),
+					ligera: profile.filter(o => o.valor_str == 'LIGERA'),
+					aproximada: profile.filter(o => o.valor_str == 'APROXIMADA'),
+					verdadera: profile.filter(o => o.valor_str == 'VERDADERA')
+				}
+
+				// render view
+				res.render('status/', {
+					title: `${obj.personaje}`,
+					obj: obj
 				})
 			})
-
-			// filter plot array by unique objects
-			plot = plot.filter((val, idx, self) => self.findIndex((t) => {
-				return t.label === val.label && t.value === val.value
-			}) === idx)
-
-			// create object data
-			let obj = {
-				profile_id: _id,
-				personaje: profile[0].personaje,
-				min: stats.min(values),
-				max: stats.max(values),
-				mean: stats.mean(values).toFixed(2).toString(),
-				sum: stats.sum(values),
-				checks: values.length,
-				values: values,
-				table: plot,
-				bar_plot: plot,
-				data: profile,
-				falsa: profile.filter(o => o.valor_str == 'FALSA'),
-				enganosa: profile.filter(o => o.valor_str == 'ENGAÑOSA'),
-				inflada: profile.filter(o => o.valor_str == 'INFLADA'),
-				ligera: profile.filter(o => o.valor_str == 'LIGERA'),
-				aproximada: profile.filter(o => o.valor_str == 'APROXIMADA'),
-				vardadera: profile.filter(o => o.valor_str == 'VERDADERA')
-			}
-
-			// render view
-			res.render('status/', {
-				title: `${obj.personaje}`,
-				obj: obj
-			})
-		})
+	})
 })
 
 // profiles forms
