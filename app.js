@@ -136,14 +136,6 @@ app.get('/', (req, res) => {
 		})
 })
 
-// metodología
-app.get('/metodologia', (req, res) => {
-	let title = 'Metodología'
-	res.render('method/', {
-		title: title
-	})
-})
-
 // ranking
 app.get('/ranking', (req, res) => {
 	let title = 'Colombia Check - Ranking'
