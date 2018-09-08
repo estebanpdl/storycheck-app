@@ -57,7 +57,7 @@ require('./models/Slides')
 const Slides = mongoose.model('slides')
 
 // call directories
-app.use(express.static('assets'))
+app.use(express.static('assets/'))
 
 // handlebars middleware
 app.engine('handlebars', hbars({
