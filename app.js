@@ -57,7 +57,7 @@ require('./models/Slides')
 const Slides = mongoose.model('slides')
 
 // call directories
-app.use(express.static('assets/'))
+app.use(express.static('assets'))
 
 // handlebars middleware
 app.engine('handlebars', hbars({
@@ -100,8 +100,11 @@ app.use(function (req, res, next) {
 })
 
 /***************
+
 	CREATE VIEWS
+
 ****************/
+
 // home
 app.get('/', (req, res) => {
 	let title = 'Colombia Check'
@@ -205,7 +208,7 @@ app.get('/api/status/:id', (req, res) => {
 				// create object data
 				let obj = {
 					profile_id: _id,
-					gender: profile_checked.personaje,
+					gender: profile_checked.genero,
 					personaje: profile[0].personaje,
 					min: stats.min(values),
 					max: stats.max(values),
@@ -221,7 +224,8 @@ app.get('/api/status/:id', (req, res) => {
 					inflada: profile.filter(o => o.valor_str == 'INFLADA'),
 					ligera: profile.filter(o => o.valor_str == 'LIGERA'),
 					aproximada: profile.filter(o => o.valor_str == 'APROXIMADA'),
-					verdadera: profile.filter(o => o.valor_str == 'VERDADERA')
+					verdadera: profile.filter(o => o.valor_str == 'VERDADERA'),
+					link_to_tag: profile_checked.link_to_tag
 				}
 
 				// send data
@@ -291,7 +295,7 @@ app.get('/status/:id', (req, res) => {
 				// create object data
 				let obj = {
 					profile_id: _id,
-					gender: profile_checked.personaje,
+					gender: profile_checked.genero,
 					personaje: profile[0].personaje,
 					min: stats.min(values),
 					max: stats.max(values),
@@ -307,7 +311,8 @@ app.get('/status/:id', (req, res) => {
 					inflada: profile.filter(o => o.valor_str == 'INFLADA'),
 					ligera: profile.filter(o => o.valor_str == 'LIGERA'),
 					aproximada: profile.filter(o => o.valor_str == 'APROXIMADA'),
-					verdadera: profile.filter(o => o.valor_str == 'VERDADERA')
+					verdadera: profile.filter(o => o.valor_str == 'VERDADERA'),
+					link_to_tag: profile_checked.link_to_tag
 				}
 
 				// render view
@@ -330,12 +335,38 @@ app.get('/add/profile', clientIsNotAuth, (req, res) => {
 // profiles forms - post
 app.post('/add/profile', clientIsNotAuth, (req, res) => {
 	let newProfile = req.body
+
+	// save new profile
 	new Profiles(newProfile)
 		.save()
 		.then(profile => {
 			req.flash('success_msg', 'Personaje añadido correctamente')
 			res.redirect('/checks/admin/')
 		})
+})
+
+// profiles forms - search post
+app.post('/add/profile/search', clientIsNotAuth, (req, res) => {
+	// explore query
+	let q = req.body.query
+	let query = {
+		'$or': [{'personaje': {'$regex': q, '$options': 'i'}}]
+	}
+	let output = []
+
+	// search for inserted query
+	Profiles.find(query).limit(6).then( prof => {
+		if (prof && prof.length && prof.length > 0) {
+			prof.forEach(p => {
+				let obj = {
+					id: p.personaje,
+					label: p.personaje
+				}
+				output.push(obj)
+			})
+		}
+		res.json(output)
+	})
 })
 
 // grupo o movimiento form
@@ -349,12 +380,38 @@ app.get('/add/grupo-movimiento', clientIsNotAuth, (req, res) => {
 // grupo o movimiento form - post
 app.post('/add/grupo-movimiento', clientIsNotAuth, (req, res) => {
 	let newGpo = req.body
+
+	// save new group or movement
 	new Grupos(newGpo)
 		.save()
 		.then(grupo => {
 			req.flash('success_msg', 'Grupo o movimiento registrado correctamente')
 			res.redirect('/checks/admin/')
 		})
+})
+
+// grupo o movimiento form - search post
+app.post('/add/grupo-movimiento/search', clientIsNotAuth, (req, res) => {
+	// explore query
+	let q = req.body.query
+	let query = {
+		'$or': [{'movimiento': {'$regex': q, '$options': 'i'}}]
+	}
+	let output = []
+
+	// search for inserted query
+	Grupos.find(query).limit(6).then( gpo => {
+		if (gpo && gpo.length && gpo.length > 0) {
+			gpo.forEach(g => {
+				let obj = {
+					id: g.movimiento,
+					label: g.movimiento
+				}
+				output.push(obj)
+			})
+		}
+		res.json(output)
+	})
 })
 
 // slides form

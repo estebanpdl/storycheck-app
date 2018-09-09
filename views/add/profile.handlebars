@@ -9,13 +9,14 @@
       <hr class='add-item-division' />
       <form action='/add/profile' method='post'>
         <div class='form-group'>
-          <input type='text' name='personaje' class='form-control' placeholder='Nombre del personaje' />
+          <input type='text' name='personaje' id='q' class='form-control' placeholder='Nombre del personaje' />
           <select class='form-control' name='genero'>
             <option disabled selected>Selecciona el género</option>
             <option value='F'>Femenino</option>
             <option value='M'>Masculino</option>
+            <option value='N'>Neutral</option>
           </select>
-          <input type='text' name='link_to_tag' class='form-control' placeholder='Link al tag de Colombia Check' />
+          <input type='text' name='link_to_tag' class='form-control' value='No aplica' placeholder='Link al tag de Colombia Check' />
           <button class='btn btn-primary btn-block submit-btn' type='submit'>Capturar</button>
         </div>
       </form>
